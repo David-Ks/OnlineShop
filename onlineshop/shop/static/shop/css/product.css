@@ -1,0 +1,29 @@
+div.product-box {
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: 25px;
+}
+
+div.product-box .card-box {
+	flex-grow: 1;
+	width: 30%;
+	margin: 10px;
+	color: black;
+	text-decoration: none;
+}
+
+div.product-box .card-box:hover {
+	cursor: default;
+}
+
+img.product-img {
+	margin: 5px;
+	width: 100%;
+	max-height: 200px;
+	height: 100%;
+	object-fit: scale-down;
+}
+
+div.offcanvas {
+    width: 29% !important;
+}

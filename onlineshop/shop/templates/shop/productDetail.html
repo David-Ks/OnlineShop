@@ -1,0 +1,66 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block css %}
+	<link rel="stylesheet" type="text/css" href="{% static 'shop/css/productdetail.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container" style="margin-top: 80px;">
+	<div class="main-box">
+		<div class="flex-col">
+			<img class="main-box-image" src="{{object.image.url}}">
+			<hr class="w-75 super-center">
+			<h4 class="mb-4">{{object.title}}</h4>
+		</div>
+		<div class="main-box-content flex-col">{{object.description}}</div>
+		<div class="flex-col">
+			<div class="main-box-buy super-center">
+				<span class="text-light">Price: {{object.price}}$</span>
+				<form method="get" action="{% url 'chackout' %}" style="display: inline;">
+					<input type="text" value="{{object.id}}" name="product" style="display: none; visibility: hidden;">
+					<button class="btn btn-outline-light" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling" type="submit">Buy <i class="icon-shopping-cart"></i></button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="comment-box">
+		<div class="comment-box-start">
+			<h3>Comments</h3>
+			<hr class="w-75 super-center">
+		</div>
+		<div class="container">
+		<div class="row">
+			{% for comment in comments %}
+		    <div class="col-md-8">
+		        <div class="media g-mb-30 media-comment d-flex">
+		            <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30" style="text-align: left;">
+		              <div class="g-mb-15">
+		                <h5 class="h5 g-color-gray-dark-v1 mb-0">{{comment.user.username}}</h5>
+		                <span class="g-color-gray-dark-v4 g-font-size-12 text-end" style="display: block;">{{comment.created_at}}</span>
+		              </div>
+		              <p>{{comment.content}}</p>
+		            </div>
+		        </div>
+		    </div>
+			{% endfor %}
+			{% if user.is_authenticated %}
+			<form class="col-md-8" method="post" action="{% url 'prdouctDetail' object.id %}">
+				{% csrf_token %}
+		        <div class="media g-mb-30 media-comment d-flex">
+		            <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30" style="text-align: left;">
+		            	<label for="exampleFormControlTextarea1" class="form-label">Your Comment</label>
+					  	<textarea class="form-control" name="content" id="exampleFormControlTextarea1" rows="5"></textarea>
+			            <div class="text-end">
+			            	<button class="btn text-light bg-primary mt-3" type="submit">Add Comment</button>
+			            </div>
+		            </div>
+		        </div>
+		    </form>
+		    {% endif %}
+		</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

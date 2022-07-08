@@ -1,0 +1,87 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block css %}
+<link href="{% static 'shop/css/home.css' %}" rel="stylesheet">
+<link
+        rel="stylesheet"
+        href="https://unpkg.com/swiper@8/swiper-bundle.min.css"
+/>
+{% endblock %}
+
+{% block js %}
+<script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+<script>
+      var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 5,
+        spaceBetween: 30,
+        slidesPerGroup: 5,
+        loop: true,
+        loopFillGroupWithBlank: false,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
+
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="main-box bg-primary">
+        <img class="main-box-image" src="https://www.reviewsed.com/wp-content/uploads/2022/01/Gaming-Setups_11zon.jpg">
+        <div class="blur"></div>
+        <div class="main-box-content">
+            <h1>OnlineShop</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+        <div class="main-box-button">
+            <a href="{% url 'products' %}">
+                <button class="btn btn-outline-light btn-lg">Products</button>
+            </a>
+        </div>
+    </div>
+
+    <div class="category-box">
+        {% for category in object_list %}
+        <a href="{% url 'products' %}?category={{category.id}}" class="category-box-item">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{category.title}}</h5>
+                    <p class="card-text">{{category.description}}</p>
+                </div>
+                <img class="category-box-image"
+                     src="{{category.image.url}}"
+                     class="card-img-bottom">
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="manuf-box">
+    <div class="swiper mySwiper container">
+        <div class="swiper-wrapper">
+            {% for manuf in manufactories %}
+            <div class="swiper-slide">
+                <img class="swiper-img" src="{{manuf.logo.url}}">
+            </div>
+            {% endfor %}
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+</div>
+
+{% endblock %}
