@@ -1,0 +1,31 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+<form class="container text-start" action="{% url 'register' %}" method="post" style="min-height: 50vh; padding: 10%; border: 2px solid grey; border-radius: 10px; margin: 30px auto;">
+    {% csrf_token %}
+    <h2 class="text-center">Registration</h2>
+
+  <div class="mb-3">
+    <label for="userName" class="form-label">Username</label>
+    <input type="text" name="username" class="form-control" id="userName">
+  </div>
+  <div class="mb-3">
+    <label for="inputPassword1" class="form-label">Password</label>
+    <input type="password" class="form-control" name="password1" id="inputPassword1">
+  </div>
+    {% if messages %}
+        <ul class="messages">
+            <li>Your password can’t be too similar to your other personal information.</li>
+            <li>Your password must contain at least 8 characters.</li>
+            <li>Your password can’t be a commonly used password.</li>
+            <li>Your password can’t be entirely numeric</li>.
+        </ul>
+    {% endif %}
+  <div class="mb-3">
+    <label for="inputPassword2" class="form-label">Confirm Password</label>
+    <input type="password" class="form-control" name="password2" id="inputPassword2">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

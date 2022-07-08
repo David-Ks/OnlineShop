@@ -1,0 +1,53 @@
+<nav class="navbar navbar-dark navbar-expand-lg" style="background: #0052ca;">
+  <div class="container">
+    <a class="navbar-brand" href="#">OnlineShop</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'products' %}">Products</a>
+        </li>
+      </ul>
+      <form class="d-flex" role="search" action="{% url 'products' %}" method="GET">
+        <input class="form-control me-2" type="search" placeholder="Search" name="search" aria-label="Search">
+        <button class="btn btn-outline-light" type="submit"><i class="icon-search"></i></button>
+      </form>
+
+      <div class="dropdown">
+        <button type="button" class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+          <i class="icon-user"></i>
+        </button>
+        <form class="dropdown-menu dropdown-menu-end p-4" style="width: 312px" method="post" action="{% url 'login' %}">
+          {% if not user.is_authenticated %}
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="userName" class="form-label">Username</label>
+            <input type="text" name="username" class="form-control" id="userName" placeholder="Username">
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+          </div>
+          <div class="mb-3">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="dropdownCheck2">
+              <label class="form-check-label" for="dropdownCheck2">
+                Remember me
+              </label>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Log in</button>
+          <a href="{% url 'register' %}"><button type="button" class="btn btn-primary">Registration</button></a>
+          {% else %}
+          <a href="{% url 'logout' %}" class="w-100"><button class="w-100 btn btn-primary" type="button">Log out</button></a>
+          {% endif %}
+        </form>
+      </div>
+    </div>
+  </div>
+</nav>
