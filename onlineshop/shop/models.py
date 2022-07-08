@@ -20,9 +20,6 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
-    def get_absolute_url(self, *args, **kwargs):
-        return reverse('')
-
 
 class Product(models.Model):
     title = models.CharField(max_length=255)
